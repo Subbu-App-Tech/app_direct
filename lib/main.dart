@@ -2,9 +2,7 @@ import 'package:app_direct/src/home_pg.dart';
 import 'package:flutter/material.dart';
 
 /*
-Whats app direct
 tap tap torch
-
 
 Unwanted
 copy and mark this in task

@@ -5,8 +5,8 @@ import 'package:app_direct/src/pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_sim_country_code/flutter_sim_country_code.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 CountryData countryData = CountryData();
 
@@ -20,7 +20,7 @@ class CountryData with ChangeNotifier {
   List<Country> countries = [];
   int? mobileNo;
   bool searchHistory = false;
-  String msg = '';
+  String get msg => msgContrl.text;
   TextEditingController mobNoContrl = TextEditingController();
   TextEditingController msgContrl = TextEditingController();
 
@@ -89,9 +89,15 @@ class CountryData with ChangeNotifier {
   }
 
   Future toWhatsApp(BuildContext context) async {
-    String url = 'https://wa.me/$fullMobileNo?text=$msg';
-    debugPrint('launchUrlString: $url');
-    await launchUrl(Uri.parse(url));
+    if (fullMobileNo.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Valid Mobile not Found to send Message')));
+      return;
+    }
+    final mbNo = fullMobileNo.replaceFirst('+', '');
+    String url = 'https://wa.me/$mbNo?text=$msg';
+    debugPrint('url: $url');
+    await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 
   Future lookForClip(BuildContext context) async {

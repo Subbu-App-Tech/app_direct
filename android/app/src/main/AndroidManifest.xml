@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app_direct">
+    package="com.subbu.app_direct">
    <application
         android:label="Direct Whatsapp Message"
         android:name="${applicationName}"

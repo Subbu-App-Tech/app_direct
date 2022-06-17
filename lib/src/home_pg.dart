@@ -61,7 +61,6 @@ class MobileNoTextField extends StatelessWidget {
                   decoration: const InputDecoration(
                       border: OutlineInputBorder(), labelText: 'Message'),
                   onChanged: (msg) {
-                    countryData.msg = msg;
                     // ignore: invalid_use_of_protected_member
                     pinButton.currentState?.setState(() {});
                   },

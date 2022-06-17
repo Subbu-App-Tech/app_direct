@@ -25,6 +25,7 @@ dependencies:
   safe_clipboard: ^0.0.2
   shared_preferences: ^2.0.15
   url_launcher: ^6.1.3
+  url_launcher_android: ^6.0.17
 
 dev_dependencies:
   flutter_lints: ^2.0.0

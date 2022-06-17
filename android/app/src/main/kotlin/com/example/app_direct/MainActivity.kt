@@ -1,4 +1,4 @@
-package com.example.app_direct
+package com.subbu.app_direct
 
 import io.flutter.embedding.android.FlutterActivity
 
