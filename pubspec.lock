@@ -43,13 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
-  country_calling_code_picker:
-    dependency: "direct main"
-    description:
-      name: country_calling_code_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.1"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -64,6 +57,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.2"
+  external_app_launcher:
+    dependency: "direct main"
+    description:
+      name: external_app_launcher
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -205,13 +205,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
-  safe_clipboard:
-    dependency: "direct main"
-    description:
-      name: safe_clipboard
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.2"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -315,6 +308,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  text_process:
+    dependency: "direct main"
+    description:
+      path: "Plugin/text_process"
+      relative: true
+    source: path
+    version: "0.0.1"
   url_launcher:
     dependency: "direct main"
     description:

@@ -31,13 +31,17 @@ class CountryData with ChangeNotifier {
         .firstWhere((e) => e.countryCode == (code ?? defCountryCode ?? 'IN'));
   }
 
-  Future _loadCountries(BuildContext context) async {
-    await _loadSimCountryCode(context);
-    String rawData =
-        await rootBundle.loadString('assets/countryCode/country_codes.json');
-    final parsed = json.decode(rawData.toString()).cast<Map<String, dynamic>>();
-    countries = parsed.map<Country>((json) => Country.fromJson(json)).toList();
-    countries.sort((a, b) => a.name.compareTo(b.name));
+  Future _loadCountries() async {
+    await _loadSimCountryCode();
+    if (countries.isEmpty) {
+      String rawData =
+          await rootBundle.loadString('assets/countryCode/country_codes.json');
+      final parsed =
+          json.decode(rawData.toString()).cast<Map<String, dynamic>>();
+      countries =
+          parsed.map<Country>((json) => Country.fromJson(json)).toList();
+      countries.sort((a, b) => a.name.compareTo(b.name));
+    }
     if (defCountryCode != null) {
       final country = getCountry(defCountryCode!);
       countries.removeWhere((e) => e.countryCode == defCountryCode!);
@@ -45,7 +49,7 @@ class CountryData with ChangeNotifier {
     }
   }
 
-  Future _loadSimCountryCode(BuildContext context) async {
+  Future _loadSimCountryCode() async {
     String locale = Platform.localeName;
     try {
       if (Platform.isAndroid || Platform.isIOS) {
@@ -90,8 +94,8 @@ class CountryData with ChangeNotifier {
 
   Future toWhatsApp(BuildContext context) async {
     if (fullMobileNo.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Valid Mobile not Found to send Message')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Valid Mobile not Found to send Message')));
       return;
     }
     final mbNo = fullMobileNo.replaceFirst('+', '');
@@ -100,19 +104,26 @@ class CountryData with ChangeNotifier {
     await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
   }
 
-  Future lookForClip(BuildContext context) async {
-    await _loadCountries(context);
-    final clip = await Clipboard.getData(Clipboard.kTextPlain);
-    if (clip?.text != null) {
-      bool isMatchFound = RegExp(regEx).hasMatch(clip!.text ?? '');
-      debugPrint('Text On Clip [$isMatchFound]: ${clip.text}');
-      if (isMatchFound) {
-        onChangeMobileNo(clip.text!);
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          showMobNoInClip(context, '$mobileNo');
-        });
-      }
+  Future lookForClip(BuildContext context, String textfrom) async {
+    await _loadCountries();
+    String clipText = textfrom.isNotEmpty
+        ? textfrom
+        : (await Clipboard.getData(Clipboard.kTextPlain))?.text ?? '';
+    debugPrint('Text On Clip: $clipText | $textfrom<');
+    clipText = getMatchingString(clipText);
+    if (clipText.isNotEmpty) {
+      onChangeMobileNo(clipText);
     }
+    return clipText.isNotEmpty;
+  }
+
+  String getMatchingString(String clipText) {
+    if (clipText.isNotEmpty) {
+      clipText = clipText.replaceAll('-', '');
+      bool isMatchFound = RegExp(regEx).hasMatch(clipText);
+      return isMatchFound ? clipText : '';
+    }
+    return '';
   }
 
   void updateSearch() {

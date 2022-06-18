@@ -1,17 +1,18 @@
 import 'package:app_direct/src/Func/app_func.dart';
 import 'package:flutter/material.dart';
 
-void showMobNoInClip(BuildContext context, String mobileNo) async {
+void showMobNoInClip(BuildContext context, String mobileNo,bool isFromClip) async {
   showDialog(
       context: context,
       builder: (c) {
-        return MobileNoinClipPop(mobileNo: mobileNo);
+        return MobileNoinClipPop(mobileNo: mobileNo,isFromClip:isFromClip  );
       });
 }
 
 class MobileNoinClipPop extends StatelessWidget {
   final String mobileNo;
-  const MobileNoinClipPop({Key? key, required this.mobileNo}) : super(key: key);
+  final bool isFromClip;
+  const MobileNoinClipPop({Key? key,required this.isFromClip, required this.mobileNo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class MobileNoinClipPop extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           const SizedBox(width: 7),
-          const Text('Number Found'),
+          const Text('Number Found in Clip'),
           const Spacer(),
           IconButton(
               color: Colors.red,
