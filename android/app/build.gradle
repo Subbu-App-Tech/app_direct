@@ -78,6 +78,7 @@ android {
             signingConfig signingConfigs.release
             crunchPngs false
             minifyEnabled true
+            multiDexEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' 
         }
@@ -91,4 +92,5 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.multidex:multidex: 2.0.1'
+    implementation 'com.google.guava:guava:27.0.1-android'
 }
