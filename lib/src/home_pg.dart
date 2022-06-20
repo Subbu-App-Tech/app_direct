@@ -23,6 +23,7 @@ class _HomePgState extends State<HomePg> {
     TextProcess.initialize(
         showConfirmationToast: false,
         showErrorToast: true,
+        showRefreshToast: true,
         errorMessage: "Some Error");
     _processText = TextProcess.getProcessTextStream;
     _processText.listen((event) {
@@ -37,10 +38,15 @@ class _HomePgState extends State<HomePg> {
     super.initState();
   }
 
+  bool isFirst = true;
   String textfrom = '';
   @override
   Widget build(BuildContext context) {
     Future getDatas() async {
+      if (isFirst) {
+        textfrom = (await TextProcess.refreshProcessText) ?? '';
+        isFirst = false;
+      }
       // ignore: use_build_context_synchronously
       final isMatchFound = await countryData.lookForClip(context, textfrom);
       if (isMatchFound && countryData.mobileNo != null) {

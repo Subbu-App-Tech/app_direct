@@ -120,6 +120,7 @@ class CountryData with ChangeNotifier {
   String getMatchingString(String clipText) {
     if (clipText.isNotEmpty) {
       clipText = clipText.replaceAll('-', '');
+      clipText = clipText.replaceAll(' ', '');
       bool isMatchFound = RegExp(regEx).hasMatch(clipText);
       return isMatchFound ? clipText : '';
     }
