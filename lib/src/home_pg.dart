@@ -7,7 +7,7 @@ import 'package:app_direct/src/pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:text_process/text_process.dart';
-import 'package:external_app_launcher/external_app_launcher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePg extends StatefulWidget {
   const HomePg({Key? key}) : super(key: key);
@@ -31,9 +31,12 @@ class _HomePgState extends State<HomePg> {
       String matchStr = countryData.getMatchingString(event);
       if (matchStr.isNotEmpty) {
         textfrom = event;
-        LaunchApp.openApp(androidPackageName: 'com.subbu.app_direct');
+        launchUrl(Uri.parse('https://www.subbuapps.me/app_direct'),
+            mode: LaunchMode.externalApplication);
         setState(() {});
       }
+    }, onError: (e) {
+      debugPrint('Error: $e');
     });
     super.initState();
   }

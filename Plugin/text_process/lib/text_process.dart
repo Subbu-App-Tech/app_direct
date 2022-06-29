@@ -3,11 +3,10 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class TextProcess {
-  static const MethodChannel _channel =
-       MethodChannel('flutter_process_text');
+  static const MethodChannel _channel = MethodChannel('flutter_process_text');
 
   static const EventChannel _eventChannel =
-       EventChannel('flutter_process_text_stream');
+      EventChannel('flutter_process_text_stream');
 
   static Stream<String>? _processTextStream;
 
@@ -41,7 +40,9 @@ class TextProcess {
 
   /// Listen to the process text stream to get continuous data.
   static Stream<String> get getProcessTextStream {
-    _processTextStream ??= _eventChannel.receiveBroadcastStream().map<String>((event) => event);
+    _processTextStream ??= _eventChannel
+        .receiveBroadcastStream()
+        .map<String>((event) => event ?? '');
     return _processTextStream!;
   }
 }

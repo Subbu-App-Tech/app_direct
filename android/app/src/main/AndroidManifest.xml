@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.subbu.app_direct">
    <application
-        android:label="Direct Whatsapp Message"
+        android:label="DirectWhats Message"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -27,7 +27,7 @@
         </activity>
         <activity
            android:name=".TextProcess"
-           android:label="Direct WA"
+           android:label="DirectWhats Msg"
            android:theme="@android:style/Theme.NoDisplay"
            android:exported="true">
            <intent-filter>
@@ -35,6 +35,17 @@
                <data android:mimeType="text/plain"/>
                <category android:name="android.intent.category.DEFAULT" />
            </intent-filter>
+           <!-- Deep linking -->
+           <intent-filter android:autoVerify="true">
+                    <action android:name="android.intent.action.VIEW" />
+                    <category android:name="android.intent.category.DEFAULT" />
+                    <category android:name="android.intent.category.BROWSABLE" />
+                    <data android:scheme="http" />
+                    <data android:scheme="https" />
+                    <data android:host="www.subbuapps.me"
+                        android:pathPrefix="/app_direct"/>
+                    <data android:scheme="app" android:host="app_direct.subbu.app" />
+            </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
